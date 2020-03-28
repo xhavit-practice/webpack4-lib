@@ -27,7 +27,7 @@ const webpackConfig = {
     output: {
         path: umdDir,
         filename: '[name].js',
-        library: 'webpack4Library',
+        library: 'webpack4Lib',
         libraryTarget: 'umd',
         // libraryExport: 'default',
         // https://github.com/webpack/webpack/issues/6784
