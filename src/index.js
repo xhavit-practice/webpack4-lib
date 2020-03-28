@@ -1,9 +1,8 @@
-import template from 'lodash/template';
+import join from 'lodash/join';
 import { Random } from 'mockjs';
 
 export default function method1() {
-    const str = template('method1 - <%= word %>')({ word: Random.word(4, 6) });
-    console.log(str);
+    console.log(`method1 - ${join([1, 2, 3], '~')}`);
 }
 
 export function method2() {
