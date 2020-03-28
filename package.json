@@ -8,9 +8,6 @@
     },
     "author": "xhavit",
     "license": "ISC",
-    "directories": {
-        "lib": "umd"
-    },
     "devDependencies": {
         "@babel/core": "^7.9.0",
         "@babel/preset-env": "^7.9.0",
@@ -23,5 +20,9 @@
         "webpack": "^4.42.1",
         "webpack-cli": "^3.3.11"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "peerDependencies": {
+        "lodash": "^4.17.15",
+        "mockjs": "^1.1.0"
+    }
 }

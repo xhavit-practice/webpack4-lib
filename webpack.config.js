@@ -16,6 +16,7 @@ const parsedFiles = files.map(filePath => {
     return {
         ...path.parse(absolutePath),
         absolutePath,
+        // 相对于src的路径
         relativePath: filePath,
     };
 });
@@ -57,7 +58,20 @@ const webpackConfig = {
             }),
         ],
     },
-    plugins: [new CleanWebpackPlugin(), new CopyPlugin(getCopyOptions())],
+    plugins: [
+        new CleanWebpackPlugin(),
+        // to是相对于output.path的
+        // from是相对于项目根目录的
+        new CopyPlugin([
+            // 复制并修改环境判断的主js模块
+            ...getCopyOptions(),
+            //
+            {
+                to: './',
+                from: './package.json',
+            },
+        ]),
+    ],
 };
 
 // 根据入口文件列表生成最终的entry object
