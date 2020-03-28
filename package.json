@@ -4,7 +4,9 @@
     "description": "webpack4 library practice",
     "main": "index.js",
     "scripts": {
-        "build": "webpack"
+        "build": "webpack",
+        "pub": "npm publish umd",
+        "prepublishOnly": "npm run build"
     },
     "author": "xhavit",
     "license": "ISC",

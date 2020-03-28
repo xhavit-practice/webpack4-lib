@@ -67,8 +67,8 @@ const webpackConfig = {
             ...getCopyOptions(),
             //
             {
-                to: './',
-                from: './package.json',
+                to: umdDir,
+                from: path.join(rootDir, 'package.json'),
             },
         ]),
     ],
@@ -93,8 +93,8 @@ function getEntryOptions() {
  */
 function getCopyOptions() {
     return parsedFiles.map(({ relativePath }) => ({
-        to: relativePath,
-        from: 'template/env.js',
+        to: path.join(umdDir, relativePath),
+        from: path.join(rootDir, 'template/env.js'),
         transform: copyTemplateTransform,
     }));
 }
