@@ -41,11 +41,15 @@ const baseConfig = {
             console.log(context);
             if (!/^lodash\/.+$/.test(request)) return callback();
 
+            const lodashAlias = '_';
+            const rootRequest = request.split('/');
+            rootRequest[0] = lodashAlias;
+
             callback(null, {
                 commonjs: request,
                 commonjs2: request,
                 amd: request,
-                root: request.split('/'),
+                root: rootRequest,
             });
         },
     ],
