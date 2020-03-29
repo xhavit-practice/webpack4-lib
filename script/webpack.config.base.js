@@ -1,11 +1,10 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
-const rootDir = path.resolve(__dirname, '.');
+const rootDir = path.resolve(__dirname, '..');
 const srcDir = path.join(rootDir, 'src');
-const umdDir = path.join(rootDir, './umd');
+const npmDir = path.join(rootDir, 'npm');
 
 // 需要build的入口文件
 const files = ['index.js', 'method3.js', 'foo/method4.js', 'bar.js'];
@@ -21,20 +20,9 @@ const parsedFiles = files.map(filePath => {
     };
 });
 
-const webpackConfig = {
+const baseConfig = {
     entry: getEntryOptions(),
     mode: 'production',
-    output: {
-        path: umdDir,
-        filename: '[name].js',
-        library: 'webpack4Lib',
-        libraryTarget: 'commonjs2',
-        // libraryExport: 'default',
-        // https://github.com/webpack/webpack/issues/6784
-        // To make UMD build available on both browsers and Node.js, set output.globalObject option to 'this'.
-        // or there will be an error: window is not defined
-        // globalObject: 'this',
-    },
     externals: [
         // external mockjs
         'mockjs',
@@ -58,20 +46,7 @@ const webpackConfig = {
             }),
         ],
     },
-    plugins: [
-        new CleanWebpackPlugin(),
-        // to是相对于output.path的
-        // from是相对于项目根目录的
-        new CopyPlugin([
-            // 复制并修改环境判断的主js模块
-            ...getCopyOptions(),
-            //
-            {
-                to: umdDir,
-                from: path.join(rootDir, 'package.json'),
-            },
-        ]),
-    ],
+    plugins: [new CleanWebpackPlugin()],
 };
 
 // 根据入口文件列表生成最终的entry object
@@ -89,34 +64,6 @@ function getEntryOptions() {
 }
 
 /**
- * 入口文件列表生成CopyPlugin参数
- */
-function getCopyOptions() {
-    return parsedFiles.map(({ relativePath }) => ({
-        to: path.join(umdDir, relativePath),
-        from: path.join(rootDir, 'template/env.js'),
-        transform: copyTemplateTransform,
-    }));
-}
-
-/**
- * template content转换程序
- * @param {Buffer} content template content
- */
-function copyTemplateTransform(content) {
-    const toPath = `./${path.parse(this.to).base}`;
-    const jsString = content
-        .toString('utf8')
-        .replace(/__PATH_PRODUCTION__/g, getFileEnvName(toPath, 'production'))
-        .replace(
-            /__PATH_DEVELOPMENT__/g,
-            getFileEnvName(toPath, 'development')
-        );
-
-    return jsString;
-}
-
-/**
  * 将filePath转换成带production或者development后缀的路径名
  * @param {String} filePath
  * @param {String} nodeEnv <production | development>
@@ -128,4 +75,12 @@ function getFileEnvName(filePath, nodeEnv) {
     return filePath.replace(res.base, `${res.name}.${env}${res.ext}`);
 }
 
-module.exports = webpackConfig;
+module.exports = {
+    files,
+    parsedFiles,
+    rootDir,
+    srcDir,
+    npmDir,
+    baseConfig,
+    getFileEnvName,
+};

@@ -4,7 +4,9 @@
     "description": "webpack4 library practice",
     "main": "index.js",
     "scripts": {
-        "build": "webpack",
+        "build": "npm run build:cjs && npm run build:umd",
+        "build:cjs": "webpack --config script/webpack.config.cjs.js",
+        "build:umd": "webpack --config script/webpack.config.umd.js",
         "pub": "npm publish umd",
         "prepublishOnly": "npm run build"
     },
@@ -20,7 +22,8 @@
         "mockjs": "^1.1.0",
         "terser-webpack-plugin": "^2.3.5",
         "webpack": "^4.42.1",
-        "webpack-cli": "^3.3.11"
+        "webpack-cli": "^3.3.11",
+        "webpack-merge": "^4.2.2"
     },
     "dependencies": {},
     "peerDependencies": {
