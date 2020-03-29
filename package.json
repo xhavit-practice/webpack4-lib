@@ -1,14 +1,13 @@
 {
     "name": "webpack4-lib",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "webpack4 library practice",
     "main": "index.js",
     "scripts": {
         "build": "npm run build:cjs && npm run build:umd",
-        "build:cjs": "webpack --config script/webpack.config.cjs.js",
-        "build:umd": "webpack --config script/webpack.config.umd.js",
-        "pub": "npm publish umd",
-        "prepublishOnly": "npm run build"
+        "build:cjs": "webpack --config ./script/webpack.config.cjs.js",
+        "build:umd": "webpack --config ./script/webpack.config.umd.js",
+        "pub": "npm run build && npm publish npm"
     },
     "author": "xhavit",
     "license": "ISC",

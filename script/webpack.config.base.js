@@ -24,9 +24,16 @@ const baseConfig = {
     entry: getEntryOptions(),
     mode: 'production',
     externals: [
-        // external mockjs
-        'mockjs',
-        // external lodash
+        {
+            // mockjs
+            mockjs: {
+                commonjs: 'mockjs',
+                commonjs2: 'mockjs',
+                amd: 'mockjs',
+                root: 'Mock',
+            },
+        },
+        // lodash
         /^lodash\/.+$/,
     ],
     module: {
