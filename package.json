@@ -1,13 +1,14 @@
 {
     "name": "webpack4-lib",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "description": "webpack4 library practice",
     "main": "index.js",
     "scripts": {
-        "build": "npm run build:cjs && npm run build:umd",
-        "build:cjs": "webpack --config ./script/webpack.config.cjs.js",
+        "build": "npm run build:umd && npm run build:umd:help && npm run build:cjs",
         "build:umd": "webpack --config ./script/webpack.config.umd.js",
-        "pub": "npm run build && npm publish npm"
+        "build:umd:help": "webpack --config ./script/webpack.config.umd.help.js",
+        "build:cjs": "webpack --config ./script/webpack.config.cjs.js",
+        "prepublishOnly": "npm run build"
     },
     "author": "xhavit",
     "license": "ISC",
@@ -16,10 +17,10 @@
         "@babel/preset-env": "^7.9.0",
         "babel-loader": "^8.1.0",
         "clean-webpack-plugin": "^3.0.0",
-        "copy-webpack-plugin": "^5.1.1",
         "lodash": "^4.17.15",
         "mockjs": "^1.1.0",
         "terser-webpack-plugin": "^2.3.5",
+        "uglify-js": "^3.8.1",
         "webpack": "^4.42.1",
         "webpack-cli": "^3.3.11",
         "webpack-merge": "^4.2.2"

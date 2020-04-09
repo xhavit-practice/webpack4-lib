@@ -1,10 +1,8 @@
-import join from 'lodash/join';
-import { Random } from 'mockjs';
+import method1 from './method1';
+import method2 from './method2';
+import method3 from './method3';
 
-export default function method1() {
-    console.log(`method1 - ${join([1, 2, 3], '~')}`);
+function main() {
+    console.log('lib - mian');
 }
-
-export function method2() {
-    console.log(`method2 - ${Random.word(4, 6)}`);
-}
+export default Object.assign(main, { method1, method2, method3 });

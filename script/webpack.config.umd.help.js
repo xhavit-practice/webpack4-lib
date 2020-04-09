@@ -1,32 +1,26 @@
 const path = require('path');
 const merge = require('webpack-merge');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 
 const rootDir = path.resolve(__dirname, '..');
 const srcDir = path.join(rootDir, 'src');
 const buildDir = path.join(rootDir, 'dist');
 
-const umdConfig = {
+const esConfig = {
     entry: {
-        index: path.join(srcDir, 'index.js'),
-        'index.min': path.join(srcDir, 'index.js'),
+        index: path.join(rootDir, 'script/umdHelp.js'),
+        'index.min': path.join(rootDir, 'script/umdHelp.js'),
     },
-    devtool: 'source-map',
     output: {
         path: buildDir,
         filename: (chunkData) => {
             return `${chunkData.chunk.name.replace(
                 'index',
-                'webpack4-lib.umd'
+                'webpack4-lib.umd.help'
             )}.js`;
         },
-        library: 'webpack4Lib',
-        libraryTarget: 'umd',
-        libraryExport: 'default',
-        globalObject: 'this',
+        libraryTarget: 'var',
     },
-    plugins: [new CleanWebpackPlugin()],
 };
 
-module.exports = merge(baseConfig, umdConfig);
+module.exports = merge(baseConfig, esConfig);
