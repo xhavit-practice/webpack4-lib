@@ -1,6 +1,6 @@
 {
     "name": "webpack4-lib",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "description": "webpack4 library practice",
     "main": "dist/webpack4-lib.cjs.js",
     "browser": "dist/webpack4-lib.umd.js",

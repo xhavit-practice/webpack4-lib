@@ -14,6 +14,7 @@ const cjsConfig = {
         path: buildDir,
         filename: 'webpack4-lib.cjs.js',
         libraryTarget: 'commonjs2',
+        libraryExport: 'default',
     },
 };
 
